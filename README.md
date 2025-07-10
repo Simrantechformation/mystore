@@ -15,5 +15,5 @@ A full-stack e-commerce application built using Next.js, Tailwind CSS, MongoDB, 
 ### 1. Clone the repository
 
 bash
-git clone https://github.com/yourusername/nextjs-ecommerce.git
+git clone https://simrantechformation.github.io/mystore/
 cd ecommerce

@@ -1,22 +1,20 @@
 import { connectDB } from '@/lib/mongoose';
 import { Product } from '@/models/Product';
 import { NextRequest, NextResponse } from 'next/server';
-import { getProductById } from '@/utils/getProductById'; // Optional helper
 
-// Import this type
-import type { NextApiRequest } from 'next';
-
-// FIX: Use the right signature
-export async function GET(
-  req: NextRequest,
-  context: { params: { id: string } }
-) {
+export async function GET(req: NextRequest) {
   try {
     await connectDB();
 
-    const { id } = context.params;
-    const product = await Product.findById(id);
+    // Extract id from URL
+    const url = new URL(req.url);
+    const id = url.pathname.split('/').pop(); // gets the last segment of /api/products/[id]
 
+    if (!id) {
+      return NextResponse.json({ message: 'Product ID missing' }, { status: 400 });
+    }
+
+    const product = await Product.findById(id);
     if (!product) {
       return NextResponse.json({ message: 'Product not found' }, { status: 404 });
     }
