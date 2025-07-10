@@ -8,6 +8,7 @@ import * as yup from 'yup';
 import { useState } from 'react';
 import { toast } from 'react-toastify';
 import Link from 'next/link';
+import { signupSchema } from '@/schemas/signupSchema';
 
 interface SignupFormData {
   email: string;
@@ -55,7 +56,7 @@ const SignupForm = () => {
     handleSubmit,
     formState: { errors, isSubmitting }
   } = useForm<SignupFormData>({
-    resolver: yupResolver(schema),
+    resolver: yupResolver(signupSchema), // ✅ Use imported schema
     defaultValues: {
       email: '',
       password: '',
@@ -71,7 +72,6 @@ const SignupForm = () => {
 
   const onSubmit = async (data: SignupFormData) => {
     setServerMessage('');
-
     try {
       const res = await fetch('/api/auth/register', {
         method: 'POST',
