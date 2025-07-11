@@ -2,6 +2,7 @@ import { create } from 'zustand';
 
 type Product = {
   _id: string;
+  title: string;
   name: string;
   price: number;
   ratings: number;

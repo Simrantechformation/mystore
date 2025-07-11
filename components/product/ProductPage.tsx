@@ -2,11 +2,14 @@
 
 import { useEffect, useState } from 'react';
 import Image from 'next/image';
-import { Heart, ShoppingCart, List, LayoutGrid } from 'lucide-react';
+import { Heart, ShoppingCart, List, LayoutGrid, SlidersHorizontal } from 'lucide-react';
 import Link from 'next/link';
 import { useProductStore } from '@/store/ProductStore';
 import { useUserStore } from '@/store/UserStore';
 import { toast } from 'react-toastify';
+import SearchBar from '../forms/SearchBar';
+import FilterPanel from '../features/FilterPanel';
+import Drawer from '../ui/Drawer';
 
 const ProductPage = () => {
   const [view, setView] = useState<'grid' | 'list'>('grid');
@@ -15,6 +18,34 @@ const ProductPage = () => {
   const { products, fetchProducts, loading, error } = useProductStore();
   const { user } = useUserStore();
   const productsPerPage = 6;
+  const [searchTerm, setSearchTerm] = useState('');
+  const [filteredProducts, setFilteredProducts] = useState(products);
+  const [searchLoading, setSearchLoading] = useState(false);
+  const [filters, setFilters] = useState({});
+  const [isFilterOpen, setIsFilterOpen] = useState(false)
+
+  const handleSearch = async (term: string) => {
+    setSearchTerm(term);
+    if (!term) {
+      setFilteredProducts(products);
+      return;
+    }
+    setSearchLoading(true);
+    try {
+      const res = await fetch(`/api/products/search?search=${encodeURIComponent(term)}`);
+      const data = await res.json();
+      if (res.ok) {
+        setFilteredProducts(data.products || []);
+        setCurrentPage(1); // Reset pagination
+      } else {
+        toast.error(data?.message || 'Failed to search');
+      }
+    } catch (err) {
+      toast.error('Search failed');
+    } finally {
+      setSearchLoading(false);
+    }
+  };
 
   useEffect(() => {
     fetchProducts();
@@ -35,12 +66,12 @@ const ProductPage = () => {
     fetchWishlist();
   }, [user?._id]);
 
-  const paginatedProducts = products.slice(
+  const paginatedProducts = filteredProducts.slice(
     (currentPage - 1) * productsPerPage,
     currentPage * productsPerPage
   );
 
-  const totalPages = Math.ceil(products.length / productsPerPage);
+  const totalPages = Math.ceil(filteredProducts.length / productsPerPage);
 
   const toggleWishlist = async (productId: string) => {
     if (!user) {
@@ -106,6 +137,33 @@ const ProductPage = () => {
     }
   };
 
+  const handleFilterChange = async (updatedFilters: Record<string, string[]>) => {
+    setFilters(updatedFilters);
+    if (!updatedFilters || Object.keys(updatedFilters).length === 0) {
+      setFilteredProducts(products); // fallback
+      return;
+    }
+
+    try {
+      const res = await fetch('/api/products/filter', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ filters: updatedFilters }),
+      });
+
+      const data = await res.json();
+      if (res.ok) {
+        setFilteredProducts(data.products || []);
+        setCurrentPage(1);
+      } else {
+        toast.error(data?.message || 'Failed to apply filters');
+      }
+    } catch (err) {
+      toast.error('Error fetching filtered products');
+      console.error(err);
+    }
+  };
+
   const renderStars = (rating: number) => {
     const rounded = Math.round(rating); // round to nearest whole number
     return '★'.repeat(rounded) + '☆'.repeat(5 - rounded);
@@ -113,7 +171,7 @@ const ProductPage = () => {
 
   if (loading) {
     return (
-      <div className="p-6 max-w-7xl mx-auto text-center py-10">
+      <div className="p-6 mx-auto text-center py-10">
         <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-gray-900 mx-auto"></div>
         <p className="mt-4 text-gray-600">Loading your products...</p>
       </div>
@@ -122,7 +180,7 @@ const ProductPage = () => {
 
   if (error) {
     return (
-      <div className="p-6 max-w-7xl mx-auto text-center py-10">
+      <div className="p-6  mx-auto text-center py-10">
         <p className="text-red-500 mb-4">{error}</p>
         <button
           onClick={() => window.location.reload()}
@@ -134,19 +192,47 @@ const ProductPage = () => {
     );
   }
 
+  const totalFiltersApplied = Object.values(filters).reduce<number>(
+    (total, arr) => total + (Array.isArray(arr) ? arr.length : 0),
+    0
+  );
+
   return (
-    <div className="p-6 max-w-7xl mx-auto">
+    <div className="p-6  mx-auto">
       <div className="flex justify-between items-center mb-6">
         <h2 className="text-2xl font-bold">All Products</h2>
+        {/* Search Bar srecah by title */}
+        <div className="hidden md:flex flex-1 max-w-lg">
+          <SearchBar placeholder="Search products..." onSearch={handleSearch} />
+        </div>
         <div className="flex gap-2">
-          <button onClick={() => setView('grid')}>
-            <LayoutGrid className={`w-6 h-6 ${view === 'grid' ? 'text-gray-800' : 'text-gray-400'}`} />
-          </button>
           <button onClick={() => setView('list')}>
-            <List className={`w-6 h-6 ${view === 'list' ? 'text-gray-800' : 'text-gray-400'}`} />
+            <List className={`w-6 h-6 ${view === 'list' ? 'text-green-600' : 'text-gray-700'}`} />
           </button>
+          <button onClick={() => setView('grid')}>
+            <LayoutGrid className={`w-6 h-6 ${view === 'grid' ? 'text-green-600' : 'text-gray-700'}`} />
+          </button>
+          <div className="relative">
+            <button onClick={() => setIsFilterOpen(true)}>
+              <SlidersHorizontal className="w-6 h-6 text-gray-700 mt-2" />
+            </button>
+            {totalFiltersApplied > 0 && (
+              <span className="absolute -top-1 -right-1 w-6 h-4 text-xs bg-green-500 text-white rounded-full flex items-center justify-center">
+                {totalFiltersApplied}
+              </span>
+            )}
+          </div>
         </div>
       </div>
+
+      <Drawer isOpen={isFilterOpen} onClose={() => setIsFilterOpen(false)} title="Filters">
+        <FilterPanel
+          filters={filters}
+          onClose={() => setIsFilterOpen(false)}
+          onFilterChange={handleFilterChange}
+          products={products}
+        />
+      </Drawer>
 
       <div className={view === 'grid' ? 'grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6' : 'space-y-4'}>
         {paginatedProducts.map((product) => (
@@ -169,7 +255,7 @@ const ProductPage = () => {
             </div>
 
             <div className={`${view === 'list' ? 'w-2/3' : ''} mt-2`}>
-              <h3 className="text-lg font-semibold">{product.name}</h3>
+              <h3 className="text-lg font-semibold">{product.title}</h3>
               <p className="text-gray-500 mb-1">{product.category}</p>
               <p className="text-xl font-bold text-green-600">${product.price}</p>
               {/* <div className="text-yellow-400 mb-2">★★  {product?.ratings}</div> */}

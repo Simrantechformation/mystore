@@ -26,11 +26,6 @@ const Header = () => {
           MyStore
         </Link>
 
-        {/* Search Bar */}
-        <div className="hidden md:flex flex-1 max-w-lg">
-          <SearchBar />
-        </div>
-
         {/* Icons */}
         <div className="flex items-center gap-5">
           {!user ? (

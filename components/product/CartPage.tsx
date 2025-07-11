@@ -215,7 +215,7 @@ const CartPage = () => {
                 <span>${totalPrice}</span>
               </div>
               <Link
-                href="/checkout"
+                href="/"
                 className="block mt-4 px-6 py-3 bg-gray-700 text-white text-center rounded-md hover:bg-green-600 hover:text-white hover:border hover:border-gray-700"
               >
                 Proceed to Checkout
