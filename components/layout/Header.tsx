@@ -28,7 +28,7 @@ const Header = () => {
         {/* Icons */}
         <div className="flex items-center gap-5">
           {!user ? (
-            <Link href="/accounts/register" className="flex items-center gap-1 hover:text-green-600" title="Sign In">
+            <Link href="/accounts/register" className="flex items-center gap-1 text-white hover:text-white" title="Sign In">
               Sign In
             </Link>
           ) : (
