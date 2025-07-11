@@ -14,8 +14,8 @@ const Navigation = () => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const [isCartOpen, setIsCartOpen] = useState(false);
     const [isUserMenuOpen, setIsUserMenuOpen] = useState(false);
-    const userMenuRef = useRef(null);
-    const userButtonRef = useRef(null);
+    const userMenuRef = useRef<HTMLDivElement>(null);
+    const userButtonRef = useRef<HTMLButtonElement>(null);
     const user = useUserStore((state) => state.user);
     const logout = useUserStore((state) => state.logout);
 

@@ -1,9 +1,4 @@
-import {
-    Facebook,
-    Instagram,
-    Pinterest,
-    Tiktok,
-  } from 'lucide-react';
+
   import Image from 'next/image';
   import Link from 'next/link';
   
@@ -19,12 +14,6 @@ import {
               Socially and environmentally<br />
               progressive outdoor footwear
             </p>
-            {/* <div className="flex gap-3">
-              <Link href="#" aria-label="Facebook"><Facebook size={20} /></Link>
-              <Link href="#" aria-label="Instagram"><Instagram size={20} /></Link>
-              <Link href="#" aria-label="TikTok"><Tiktok size={20} /></Link>
-              <Link href="#" aria-label="Pinterest"><Pinterest size={20} /></Link>
-            </div> */}
           </div>
   
           {/* Our Shop */}
