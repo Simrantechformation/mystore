@@ -1,11 +1,14 @@
 "use client"
+import ProtectedRoute from '@/components/auth/ProtectedRoute'
 import CartPage from '@/components/product/CartPage'
 import React from 'react'
 
 const page = () => {
   return (
     <div>
-    <CartPage/>
+        <ProtectedRoute>
+          <CartPage/>
+        </ProtectedRoute>
 
 
    </div>

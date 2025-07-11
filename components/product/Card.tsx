@@ -2,7 +2,7 @@
 
 // import shoe1 from "@/public/images/all-shoes/shoe1.png"
 import Image from "next/image";
-import shoe1 from "/public/images/all-shoes/shoe1.png"
+import shoe1 from "../../public/images/all-shoes/shoe1.png"
 const Card = () => {
 
 
