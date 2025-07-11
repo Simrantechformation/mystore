@@ -8,7 +8,7 @@ import * as yup from 'yup';
 import { useState } from 'react';
 import { toast } from 'react-toastify';
 import Link from 'next/link';
-import { signupSchema } from '@/schemas/signupSchema';
+import { signupSchema } from '../../schemas/signupSchema';
 
 interface SignupFormData {
   email: string;
