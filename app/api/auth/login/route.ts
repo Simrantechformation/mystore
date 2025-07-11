@@ -5,6 +5,8 @@ import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 
 const JWT_SECRET = process.env.JWT_SECRET!; // make sure it's set in .env.local
+console.log(JWT_SECRET, "3434"
+);
 
 export async function POST(req: NextRequest) {
   try {
