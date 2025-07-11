@@ -9,7 +9,7 @@ interface FilterPanelProps {
   products: any[];
 }
 
-const categoryOptions = ['Footwear', 'Clothing', 'Accessories'];
+const categoryOptions = ['Footwear', 'Clothing', 'Beauty'];
 
 const FilterPanel = ({ filters, onFilterChange, onClose, products }: FilterPanelProps) => {
   const [selected, setSelected] = useState<Record<string, string[]>>(filters);
@@ -62,7 +62,7 @@ const FilterPanel = ({ filters, onFilterChange, onClose, products }: FilterPanel
               type="checkbox"
               checked={selected[section]?.includes(option) || false}
               onChange={() => toggleCheckbox(section, option)}
-              className="form-checkbox text-green-600"
+            className="h-4 w-4 rounded border border-gray-400 checked:border-green-600 checked:bg-white checked:after:content-['✓'] checked:after:block checked:after:text-green-600 checked:after:text-center checked:after:leading-4 appearance-none"
             />
             <span>{option}</span>
           </label>

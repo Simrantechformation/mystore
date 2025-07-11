@@ -4,8 +4,6 @@ import { Product } from '@/models/Product';
 import { NextRequest, NextResponse } from 'next/server';
 
 // app/api/products/route.ts
-
-
 export async function GET() {
   try {
     await connectDB();
@@ -23,15 +21,3 @@ export async function GET() {
     );
   }
 }
-
-
-// export async function POST(req: NextRequest) {
-//   try {
-//     await connectDB();
-//     const body = await req.json();
-//     const newProduct = await Product.create(body);
-//     return NextResponse.json({ status: 'success', product: newProduct });
-//   } catch (error: any) {
-//     return NextResponse.json({ status: 'error', message: error.message }, { status: 500 });
-//   }
-// }

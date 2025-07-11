@@ -1,8 +1,8 @@
+// ProductStore.ts
 import { create } from 'zustand';
 
 type Product = {
   _id: string;
-  title: string;
   name: string;
   price: number;
   ratings: number;
@@ -14,17 +14,20 @@ type ProductState = {
   products: Product[];
   loading: boolean;
   error: string | null;
-  fetchProducts: () => Promise<void>;
+  fetchProducts: (category?: string) => Promise<void>; // Accept category
 };
 
 export const useProductStore = create<ProductState>((set) => ({
   products: [],
   loading: false,
   error: null,
-  fetchProducts: async () => {
+  fetchProducts: async (category?: string) => {
     set({ loading: true, error: null });
     try {
-      const res = await fetch('/api/products');
+      const endpoint = category 
+        ? `/api/category?category=${encodeURIComponent(category)}`
+        : '/api/products';
+      const res = await fetch(endpoint);
       const data = await res.json();
       set({ products: data.products, loading: false });
     } catch (err) {

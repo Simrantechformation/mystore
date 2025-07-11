@@ -43,7 +43,6 @@ const Navigation = () => {
         router.push('/');
     }
 
-
     useEffect(() => {
         const handleClickOutside = (event: any) => {
             if (
@@ -56,7 +55,6 @@ const Navigation = () => {
                 setIsUserMenuOpen(false);
             }
         };
-
         document.addEventListener('mousedown', handleClickOutside);
         return () => {
             document.removeEventListener('mousedown', handleClickOutside);
@@ -91,12 +89,12 @@ const Navigation = () => {
                         } lg:static lg:w-auto lg:bg-transparent lg:dark:bg-transparent lg:p-0 lg:gap-4 lg:text-gray-700 lg:dark:text-white`}
                 >
                     <Link href="/" className="hover:text-green-600">Home</Link>
-                    <Link href="/products" className="hover:text-green-600">All Products</Link>
-                    <Link href="/products" className="hover:text-green-600">Best Sellers</Link>
-                    <Link href="/products" className="hover:text-green-600">New Arrivals</Link>
-                    <Link href="/products" className="hover:text-green-600">Trends</Link>
-                    <Link href="/products" className="hover:text-green-600">Home & Living</Link>
-                    <Link href="/products" className="hover:text-green-600">Beauty</Link>
+                    <Link href="/categories/all-products" className="hover:text-green-600">All Products</Link>
+                    <Link href="/categories/footwear" className="hover:text-green-600">Footwear</Link>
+                    <Link href="/categories/new-arrivals" className="hover:text-green-600">New Arrivals</Link>
+                    <Link href="/categories/trends" className="hover:text-green-600">Trends</Link>
+                    <Link href="/categories/home-living" className="hover:text-green-600">Home & Living</Link>
+                    <Link href="/categories/beauty" className="hover:text-green-600">Beauty</Link>
                     {/* Location - shown only in mobile menu */}
                     <div className="flex items-center text-white lg:hidden">
                         <MapPin className="w-5 h-5 mr-1" />

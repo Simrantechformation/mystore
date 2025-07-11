@@ -1,17 +1,17 @@
 'use client';
 
-import { useProductStore } from '@/store/ProductStore';
-import { useUserStore } from '@/store/UserStore';
-import ReusableProductPage from '@/components/ui/ReusableProductPage';
 import { useEffect } from 'react';
+import { useProductStore } from '@/store/ProductStore';
+import ReusableProductPage from '../ui/ReusableProductPage';
+import { useUserStore } from '@/store/UserStore';
 
-const ProductPage = () => {
+const BeautyPage = () => {
   const { products, fetchProducts, loading, error } = useProductStore();
   const { user } = useUserStore();
   const className = 'bg-white';
-  
+
   useEffect(() => {
-    fetchProducts(); // Fetch all products
+    fetchProducts('Beauty'); // Fetch products for Beauty category
   }, []);
 
   if (loading) {
@@ -37,22 +37,24 @@ const ProductPage = () => {
     );
   }
 
+
   return (
-    <ReusableProductPage
-      user={user}
-      products={products as any}
-      fetchProducts={fetchProducts as any}
-      productsPerPage={8}
-      enableGridView={true}
-      enableListView={true}
-      wishlistEndpoint="/api/wishlist"
-      cartEndpoint="/api/cart"
-      fetchProductsEndpoint="/api/products"
-      searchEndpoint="/api/products/search"
-      filterEndpoint="/api/products/filter"
-      className="bg-white"
-    />
+    <div className="p-6 max-w-7xl mx-auto">
+      <ReusableProductPage
+        products={products as any}  
+        productsPerPage={8} 
+        user={user}
+        enableListView={true}
+        enableGridView={true}
+        wishlistEndpoint="/api/wishlist"
+        cartEndpoint="/api/cart"
+        fetchProductsEndpoint="/api/products"
+        searchEndpoint="/api/products/search"
+        filterEndpoint="/api/products/filter"
+        className="bg-white"
+      />
+    </div>
   );
 };
 
-export default ProductPage;
+export default BeautyPage;

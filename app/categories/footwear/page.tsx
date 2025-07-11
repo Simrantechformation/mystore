@@ -1,17 +1,17 @@
-'use client';
+'use client'
 
+import ReusableProductPage from '@/components/ui/ReusableProductPage'
 import { useProductStore } from '@/store/ProductStore';
 import { useUserStore } from '@/store/UserStore';
-import ReusableProductPage from '@/components/ui/ReusableProductPage';
-import { useEffect } from 'react';
+import React, { useEffect } from 'react'
 
-const ProductPage = () => {
+const FootwearPage = () => {
   const { products, fetchProducts, loading, error } = useProductStore();
   const { user } = useUserStore();
   const className = 'bg-white';
-  
+
   useEffect(() => {
-    fetchProducts(); // Fetch all products
+    fetchProducts('Footwear'); // Fetch products for Footwear category
   }, []);
 
   if (loading) {
@@ -38,21 +38,24 @@ const ProductPage = () => {
   }
 
   return (
-    <ReusableProductPage
-      user={user}
-      products={products as any}
-      fetchProducts={fetchProducts as any}
-      productsPerPage={8}
-      enableGridView={true}
-      enableListView={true}
-      wishlistEndpoint="/api/wishlist"
-      cartEndpoint="/api/cart"
-      fetchProductsEndpoint="/api/products"
-      searchEndpoint="/api/products/search"
-      filterEndpoint="/api/products/filter"
-      className="bg-white"
-    />
-  );
-};
+    <div className="p-6 max-w-7xl mx-auto">
+      <ReusableProductPage
+         user={user}
+        products={products as any}
+        productsPerPage={8}
+        enableListView={true}
+        enableGridView={true}
+        wishlistEndpoint="/api/wishlist"
+        cartEndpoint="/api/cart"
+        fetchProductsEndpoint="/api/products"
+        searchEndpoint="/api/products/search"
+        filterEndpoint="/api/products/filter"
+        className="bg-white"
+      />
+    </div>
 
-export default ProductPage;
+
+  )
+}
+
+export default FootwearPage
