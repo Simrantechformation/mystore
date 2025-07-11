@@ -4,9 +4,9 @@ type Product = {
   _id: string;
   name: string;
   price: number;
-  rating: number;
+  ratings: number;
   category: string;
-  image: string; // Assuming image is stored as a URL string in DB
+  images: string[]; 
 };
 
 type ProductState = {

@@ -1,12 +1,12 @@
 "use client"
 import Image from "next/image";
 import ProductPage from "./products/page";
-import bg from "../public/images/herosection/bg.png"
-import bg2 from "../public/images/herosection/signup.png"
-import shoe1 from "../public/images/all-shoes/shoe1.png"
-import shoe2 from "../public/images/all-shoes/shoe2.png"
-import shoe3 from "../public/images/all-shoes/shoe3.png"
-import shoe4 from "../public/images/all-shoes/shoe4.png"
+import bg from "/public/images/herosection/bg.png"
+import bg2 from "/public/images/herosection/signup.png"
+import shoe1 from "/public/images/all-shoes/shoe1.png"
+import shoe2 from "/public/images/all-shoes/shoe2.png"
+import shoe3 from "/public/images/all-shoes/shoe3.png"
+import shoe4 from "/public/images/all-shoes/shoe4.png"
 import { useRouter } from "next/navigation";
 
 export default function Home() {

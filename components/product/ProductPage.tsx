@@ -12,7 +12,6 @@ const ProductPage = () => {
   const [view, setView] = useState<'grid' | 'list'>('grid');
   const [currentPage, setCurrentPage] = useState(1);
   const [wishlistIds, setWishlistIds] = useState<string[]>([]);
-
   const { products, fetchProducts, loading, error } = useProductStore();
   const { user } = useUserStore();
   const productsPerPage = 6;
@@ -112,7 +111,6 @@ const ProductPage = () => {
     return '★'.repeat(rounded) + '☆'.repeat(5 - rounded);
   };
 
-
   if (loading) {
     return (
       <div className="p-6 max-w-7xl mx-auto text-center py-10">
@@ -176,9 +174,9 @@ const ProductPage = () => {
               <p className="text-xl font-bold text-green-600">${product.price}</p>
               {/* <div className="text-yellow-400 mb-2">★★  {product?.ratings}</div> */}
               <div className="text-yellow-400 mb-2">
-  {renderStars(product.ratings)} 
-  <span className="text-gray-600 text-sm ml-1">({product.ratings.toFixed(1)})</span>
-</div>
+                {renderStars(product.ratings)}
+                <span className="text-gray-600 text-sm ml-1">({product.ratings.toFixed(1)})</span>
+              </div>
 
               <div className="flex gap-3">
                 <button className="p-2 bg-transparent rounded hover:bg-gray-200" title="Add to cart" onClick={() => moveToCart(product._id)}>
