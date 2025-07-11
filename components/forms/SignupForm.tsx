@@ -56,7 +56,7 @@ const SignupForm = () => {
     handleSubmit,
     formState: { errors, isSubmitting }
   } = useForm<SignupFormData>({
-    resolver: yupResolver(signupSchema), // ✅ Use imported schema
+    resolver: yupResolver(signupSchema) as any, // ✅ Use imported schema
     defaultValues: {
       email: '',
       password: '',
