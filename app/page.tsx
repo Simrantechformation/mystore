@@ -18,7 +18,6 @@ export default function Home() {
           <Image
             src={bg}
             alt="Hero Background"
-            fill
             priority
             className="object-cover object-top z-0"
           />
@@ -112,7 +111,7 @@ export default function Home() {
             src={bg2}
             alt="best thing to walking barefoot"
             fill
-            priority
+            // priority
             className="object-cover"
           />
           <div className="absolute inset-0 bg-black/30 dark:bg-black/50"></div>
