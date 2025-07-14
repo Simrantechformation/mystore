@@ -8,7 +8,6 @@ export async function GET(req: Request) {
 
     const { searchParams } = new URL(req.url);
     const category = searchParams.get('category');
-
     const filter = category ? { category } : {};
     const products = await Product.find(filter);
 

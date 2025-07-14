@@ -5,7 +5,9 @@ const nextConfig: NextConfig = {
     domains: ['res.cloudinary.com'],
     unoptimized: true, 
   },
-  // basePath: "/mystore",
+  devIndicators: {
+    appIsrStatus: false,
+  },
 };
 
 export default nextConfig;

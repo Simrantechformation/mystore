@@ -9,7 +9,7 @@ interface FilterPanelProps {
   products: any[];
 }
 
-const categoryOptions = ['Footwear', 'Clothing', 'Beauty'];
+const categoryOptions = ['Footwear', 'Beauty', 'Home & Living', "New Arrivals", "Trends"];
 
 const FilterPanel = ({ filters, onFilterChange, onClose, products }: FilterPanelProps) => {
   const [selected, setSelected] = useState<Record<string, string[]>>(filters);

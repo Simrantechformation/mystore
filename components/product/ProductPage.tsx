@@ -51,6 +51,7 @@ const ProductPage = () => {
       searchEndpoint="/api/products/search"
       filterEndpoint="/api/products/filter"
       className="bg-white"
+      title="All Products"
     />
   );
 };

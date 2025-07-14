@@ -34,6 +34,7 @@ interface ProductPageProps {
   onAddToCart?: (productId: string) => void;
   onToggleWishlist?: (productId: string) => void;
   user?: { _id: string } | null;
+  title?: string;
   products?: Product[];
   fetchProducts?: () => Promise<Product[]>;
 }
@@ -143,6 +144,7 @@ const ReusableProductPage: React.FC<ProductPageProps> = ({
   enableGridView = true,
   enableListView = true,
   className = '',
+  title = '',
   onAddToCart,
   onToggleWishlist,
   user,
@@ -274,7 +276,7 @@ const ReusableProductPage: React.FC<ProductPageProps> = ({
   return (
     <div className={`p-6 mx-auto ${className}`}>
       <div className="flex justify-between items-center mb-6">
-        <h2 className="text-2xl font-bold">All Products</h2>
+        <h2 className="text-2xl font-bold">{title}</h2>
         <div className="hidden md:flex flex-1 max-w-lg">
           <SearchBar placeholder="Search products..." onSearch={handleSearch} />
         </div>

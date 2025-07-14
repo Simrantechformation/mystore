@@ -5,13 +5,13 @@ import { useProductStore } from '@/store/ProductStore';
 import ReusableProductPage from '../ui/ReusableProductPage';
 import { useUserStore } from '@/store/UserStore';
 
-const BeautyPage = () => {
+const AllProducts = () => {
   const { products, fetchProducts, loading, error } = useProductStore();
   const { user } = useUserStore();
   const className = 'bg-white';
 
   useEffect(() => {
-    fetchProducts('Beauty'); // Fetch products for Beauty category
+    fetchProducts(); // Fetch all products
   }, []);
 
   if (loading) {
@@ -52,10 +52,10 @@ const BeautyPage = () => {
         searchEndpoint="/api/products/search"
         filterEndpoint="/api/products/filter"
         className="bg-white"
-        title="Beauty"
+        title="All Products"
       />
     </div>
   );
 };
 
-export default BeautyPage;
+export default AllProducts;
