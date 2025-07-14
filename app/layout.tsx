@@ -6,6 +6,7 @@ import Navigation from "@/components/layout/Navigation";
 import Sidebar from "@/components/layout/Sidebar";
 import Footer from "@/components/layout/Footer";
 import ClientWrapper from "@/utils/ClientWrapper";
+import ClientThemeWrapper from "@/utils/ClientThemeWrapper";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -28,13 +29,13 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body className={`${geistSans.variable} ${geistMono.variable} antialiased flex min-h-screen flex-col dark:bg-black dark:text-white`}>
+    <html lang="en" className="light">
+      <body className={`${geistSans.variable} ${geistMono.variable} antialiased flex min-h-screen flex-col`}>
         <ClientWrapper>
+          <ClientThemeWrapper />
           <Header />
           <Navigation />
           <main className="flex flex-1">
-            {/* <Sidebar /> */}
             <div className="flex-1">{children}</div>
           </main>
           <Footer />
